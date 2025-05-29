@@ -3,18 +3,20 @@ import MenuIcon from "@mui/icons-material/Menu";
 import React from "react";
 import { useOutletContext } from "react-router";
 import { Link } from "react-router-dom";
-function NavBar() {
+function NavBar({ handleMobileMenu }) {
   const isMobile = useMediaQuery("(max-width:800px)");
-  const { handleMobileMenu } = useOutletContext();
+ // const { handleMobileMenu } = useOutletContext();
   return (
-    <Stack component={"header"}>
+    <Stack
+      component={"header"}
+      p={{ xs: 2, md: 3 }}
+      direction={"row"}
+      alignItems={"center"}
+      justifyContent={"space-between"}
+      
+    >
       <Stack
-        direction={"col"}
-        gap={2}
-        justifyContent={"center"}
-        alignItems={"center"}
-        paddingLeft={2}
-        paddingY={2}
+        direction={"row"} alignItems={"center"} spacing={2}
       >
         {isMobile && (
           <MenuIcon

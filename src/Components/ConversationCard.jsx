@@ -47,8 +47,11 @@ function ConversationCard(
           />
         </Stack>
         <Stack>
-          <Typography variant="h5" fontWeight={700}>
-            {chatDetails.type == "AI" ? "Soul AI" : "You"}
+          <Typography variant="heading" fontWeight={700}>
+            <span>
+                 {chatDetails.type == "AI" ? "Soul AI" : "You"}
+            </span>
+           
           </Typography>
           <Typography fontSize={{ xs: 12, sm: 14, md: 16 }}>
             {chatDetails.text}

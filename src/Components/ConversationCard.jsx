@@ -29,7 +29,7 @@ function ConversationCard({chatDetails,readOnly=false}) {
             </Stack>
             <Stack>
                 <Typography variant='h5' fontWeight={700}>{chatDetails.type == "AI" ? 'Soul AI' : 'You'}</Typography>
-                <Typography variant='h6' >{chatDetails.text}</Typography>
+                <Typography fontSize={{xs:12, sm:14, md:16}} >{chatDetails.text}</Typography>
                 <Stack
                     direction={'row'}
                     gap={2}

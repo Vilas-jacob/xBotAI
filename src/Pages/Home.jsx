@@ -26,7 +26,7 @@ function Home() {
             (item) => input.toLowerCase() === item.question.toLowerCase()
         );
 
-        let answer = "Sorry, I didn't understand your query!";
+        let answer = "Sorry, Did not understand your query!";
 
         if (response) {
             answer = response.response;

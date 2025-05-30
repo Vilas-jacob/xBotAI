@@ -1,7 +1,7 @@
 import { Box, Stack, Typography } from '@mui/material'
 import React from 'react';
 import Avatar from '../assets/avatar.png';
-import ThumbsUp from '../assets/ThumbsUp.png';
+import ThumbsUp from '../assets/Thumbsup.png';
 import ThumbsDown from '../assets/Thumbsdown.png';
 import { format } from 'date-fns';
 import Ai from '../assets/Icon.png';

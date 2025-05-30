@@ -3,7 +3,7 @@ import React from 'react';
 import Icon from '../assets/Icon.png';
 import QuickQuestions from './QuickQuestions';
 
-function InitialChat() {
+function InitialChat({generateResponse}) {
   const quickQuestions = [
     {
       question: 'Hi, what is the weather',
@@ -22,6 +22,7 @@ function InitialChat() {
       subtext: 'Get immediate AI generated response',
     },
   ];
+  
 
   return (
     <>
@@ -54,7 +55,7 @@ function InitialChat() {
               xs={12} 
               sm={6}   
             >
-              <QuickQuestions question={quick.question} subText={quick.subtext} />
+              <QuickQuestions question={quick.question} subText={quick.subtext} handleClick={generateResponse} />
             </Grid>
           ))}
         </Grid>

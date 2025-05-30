@@ -1,7 +1,7 @@
 import { Stack, Typography } from '@mui/material'
 import React from 'react'
 
-function QuickQuestions({question,subText}) {
+function QuickQuestions({question,subText,handleClick}) {
   return (
     <>
     <Stack
@@ -12,6 +12,7 @@ function QuickQuestions({question,subText}) {
         spacing={1}
         alignItems={'center'}
         sx={{cursor:'pointer'}}
+        onClick={()=>handleClick(question)}
     >
         <Typography variant='h4' fontSize={{xs:18,md:24}} fontWeight={600}>{question}</Typography>
 

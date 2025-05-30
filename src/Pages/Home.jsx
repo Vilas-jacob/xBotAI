@@ -1,11 +1,61 @@
-import React, { useState } from 'react';
-import NavBar from '../Components/NavBar';
-import InitialChat from '../Components/InitialChat';
-import SideBar from '../Components/SideBar';
-import { Box } from '@mui/material';
+import { Box, Stack } from "@mui/material";
+import InitialChat from "../Components/InitialChat";
+import MessageInput from "../Components/MessageInput";
+//import ChattingCard from "../../components/ChattingCard/ChattingCard";
+//import FeedbackModal from "../../components/FeedbackModal/FeedbackModal";
+import { useEffect, useRef, useState } from "react";
+import data from "../aiSampleData/sampleData.json";
+import { useOutletContext } from "react-router-dom";
+import Navbar from "../Components/NavBar";
+//import { ThemeContext } from "../../theme/ThemeContext";
+import { useContext } from "react";
+import ConversationCard from "../Components/ConversationCard";
+import SideBar from "../Components/SideBar";
 
 function Home() {
     const [menuOpen,setMenuOpen]=useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const listRef = useRef(null);
+    const [chatId, setChatId] = useState(1);
+    const [selectedChatId, setSelectedChatId] = useState(null);
+    const [scrollToBottom, setScrollToBottom] = useState(false);
+    const { chat, setChat } = useOutletContext();
+
+     const generateResponse = (input) => {
+        const response = data.find(
+            (item) => input.toLowerCase() === item.question.toLowerCase()
+        );
+
+        let answer = "Sorry, I didn't understand your query!";
+
+        if (response) {
+            answer = response.response;
+        }
+
+        setChat((prev) => [
+            ...prev,
+            {
+                type: "Human",
+                text: input,
+                time: new Date(),
+                id: chatId,
+            },
+            {
+                type: "AI",
+                text: answer,
+                time: new Date(),
+                id: chatId + 1,
+            },
+        ]);
+
+        setChatId((prev) => prev + 2);
+    };
+
+    
+    useEffect(() => {
+        listRef.current?.lastElementChild?.scrollIntoView();
+    }, [scrollToBottom]);
+
   return (
     <Box
       sx={{
@@ -37,7 +87,7 @@ function Home() {
           boxShadow: { xs: menuOpen ? '2px 0 5px rgba(0,0,0,0.3)' : 'none', md: 'none' },
         }}
       >
-        <SideBar setChat={() => {}} closeMenu={() => setMenuOpen(false)} />
+        <SideBar setChat={setChat} closeMenu={() => setMenuOpen(false)} />
       </Box>
 
       
@@ -52,8 +102,65 @@ function Home() {
           marginLeft: { xs: 0, md: 0 },
         }}
       >
-        <NavBar handleMobileMenu={setMenuOpen} />
-        <InitialChat />
+        <Navbar handleMobileMenu={setMenuOpen} />
+        
+
+         {chat.length === 0 && <InitialChat generateResponse={generateResponse} />}
+
+            {chat.length > 0 && (
+                <Stack
+                    height={1}
+                    flexGrow={0}
+                    p={{ xs: 2, md: 3 }}
+                    spacing={{ xs: 2, md: 3 }}
+                    sx={{
+                        overflowY: "auto",
+                        "&::-webkit-scrollbar": {
+                            width: "10px",
+                        },
+                        "&::-webkit-scrollbar-track": {
+                            boxShadow: "inset 0 0 8px rgba(0,0,0,0.1)",
+                            borderRadius: "8px",
+                        },
+                        "&::-webkit-scrollbar-thumb": {
+                            backgroundColor: "rgba(151, 133, 186,0.4)",
+                            borderRadius: "8px",
+                        },
+                    }}
+                    ref={listRef}
+                >
+                    {chat.map((details, index) => (
+                        // <ChattingCard
+                        //     details={item}
+                        //     key={index}
+                        //     updateChat={setChat}
+                        //     setSelectedChatId={setSelectedChatId}
+                        //     showFeedbackModal={() => setShowModal(true)}
+                        // />
+                        <ConversationCard 
+                            chatDetails={details}
+                            key={index}
+                            updateChat={setChat}
+                        />
+                    ))}
+                </Stack>
+            )}
+
+             <MessageInput
+                onGenerateResponse={generateResponse}
+                onScroll={setScrollToBottom}
+                chatHistory={chat}
+                onClearChat={() => setChat([])}
+            />
+
+            {/* <FeedbackModal
+                open={showModal}
+                updateChat={setChat}
+                chatId={selectedChatId}
+                handleClose={() => setShowModal(false)}
+            /> */}
+
+
       </Box>
     </Box>
   );

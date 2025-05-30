@@ -5,7 +5,6 @@ import { useOutletContext } from "react-router";
 import { Link } from "react-router-dom";
 function NavBar({ handleMobileMenu }) {
   const isMobile = useMediaQuery("(max-width:800px)");
- // const { handleMobileMenu } = useOutletContext();
   return (
     <Stack
       component={"header"}

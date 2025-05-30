@@ -1,13 +1,10 @@
 import { Box, Stack } from "@mui/material";
 import InitialChat from "../Components/InitialChat";
 import MessageInput from "../Components/MessageInput";
-//import ChattingCard from "../../components/ChattingCard/ChattingCard";
-//import FeedbackModal from "../../components/FeedbackModal/FeedbackModal";
 import { useEffect, useRef, useState } from "react";
 import data from "../aiSampleData/sampleData.json";
 import { useOutletContext } from "react-router-dom";
 import Navbar from "../Components/NavBar";
-//import { ThemeContext } from "../../theme/ThemeContext";
 import { useContext } from "react";
 import ConversationCard from "../Components/ConversationCard";
 import SideBar from "../Components/SideBar";

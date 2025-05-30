@@ -31,7 +31,7 @@ export default function MessageInput({ onGenerateResponse, onScroll, chatHistory
             <Box component={'form'} onSubmit={handleSend}>
                 <Stack direction={'row'} spacing={{ xs: 0.5, md: 2 }}>
                     <TextField
-                        placeholder='Message Bot AI…'
+                        placeholder='Message Bot AI...'
                         sx={{
                             flex: 1,
                             bgcolor: 'primary.light',

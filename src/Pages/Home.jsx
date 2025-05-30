@@ -11,15 +11,16 @@ import Navbar from "../Components/NavBar";
 import { useContext } from "react";
 import ConversationCard from "../Components/ConversationCard";
 import SideBar from "../Components/SideBar";
+import UserFeedbackModal from "../Components/UserFeedbackModal";
 
 function Home() {
     const [menuOpen,setMenuOpen]=useState(false);
-    const [showModal, setShowModal] = useState(false);
     const listRef = useRef(null);
     const [chatId, setChatId] = useState(1);
     const [selectedChatId, setSelectedChatId] = useState(null);
     const [scrollToBottom, setScrollToBottom] = useState(false);
     const { chat, setChat } = useOutletContext();
+    const [showFeedbackModal, setShowFeedbackModal] = useState(false);
 
      const generateResponse = (input) => {
         const response = data.find(
@@ -55,6 +56,23 @@ function Home() {
     useEffect(() => {
         listRef.current?.lastElementChild?.scrollIntoView();
     }, [scrollToBottom]);
+
+       const handleFeedbackSubmit = (feedback) => {
+        
+        setChat((prev) =>
+            prev.map((item) => {
+                if (item.id === selectedChatId) {
+                    return { ...item, feedback: feedback };
+                }
+                return item;
+            })
+        );
+    };
+
+     const openFeedbackModal = (chatId) => {
+        setSelectedChatId(chatId);
+        setShowFeedbackModal(true);
+    };
 
   return (
     <Box
@@ -130,17 +148,13 @@ function Home() {
                     ref={listRef}
                 >
                     {chat.map((details, index) => (
-                        // <ChattingCard
-                        //     details={item}
-                        //     key={index}
-                        //     updateChat={setChat}
-                        //     setSelectedChatId={setSelectedChatId}
-                        //     showFeedbackModal={() => setShowModal(true)}
-                        // />
+                      
                         <ConversationCard 
                             chatDetails={details}
                             key={index}
                             updateChat={setChat}
+                            setSelectedChatId={setSelectedChatId}
+                            showFeedbackModal={openFeedbackModal}
                         />
                     ))}
                 </Stack>
@@ -153,13 +167,12 @@ function Home() {
                 onClearChat={() => setChat([])}
             />
 
-            {/* <FeedbackModal
-                open={showModal}
-                updateChat={setChat}
-                chatId={selectedChatId}
-                handleClose={() => setShowModal(false)}
-            /> */}
-
+          
+            <UserFeedbackModal
+                open={showFeedbackModal}
+                handleClose={()=>setShowFeedbackModal(false)}
+                onSubmitFeedback={handleFeedbackSubmit}
+            />
 
       </Box>
     </Box>

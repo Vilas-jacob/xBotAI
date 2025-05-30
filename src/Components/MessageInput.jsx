@@ -59,7 +59,7 @@ export default function MessageInput({ onGenerateResponse, onScroll, chatHistory
                             }
                         }}
                     >
-                        Send
+                        Ask
                     </Button>
                     <Button
                         variant='outlined'

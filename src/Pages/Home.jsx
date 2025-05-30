@@ -78,7 +78,7 @@ function Home() {
         height: '100vh',
         width: '100vw',
         flexDirection: { xs: 'column', md: 'row' },
-        overflow:'hidden',
+        overflow:'visible',
       }}
     >
       
@@ -112,9 +112,10 @@ function Home() {
           display: 'flex',
           flexDirection: 'column',
           height: { xs: '100vh', md: '100vh' },
-          overflowY: 'auto',
+          //overflowY: 'auto',
           // rowGap: {xs:4,md:6},
           marginLeft: { xs: 0, md: 0 },
+          marginBottom:{xs:2,md:2}
         }}
       >
         <Navbar handleMobileMenu={setMenuOpen} />

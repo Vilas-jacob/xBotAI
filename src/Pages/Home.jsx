@@ -113,7 +113,7 @@ function Home() {
           flexDirection: 'column',
           height: { xs: '100vh', md: '100vh' },
           overflowY: 'auto',
-          rowGap: {xs:4,md:6},
+          // rowGap: {xs:4,md:6},
           marginLeft: { xs: 0, md: 0 },
         }}
       >
